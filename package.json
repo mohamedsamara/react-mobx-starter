@@ -60,9 +60,12 @@
     "workbox-webpack-plugin": "^6.0.2"
   },
   "dependencies": {
+    "baseui": "^9.107.0",
     "history": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7"
   }
 }
