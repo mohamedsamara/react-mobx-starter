@@ -1,43 +1,43 @@
 /* eslint-disable */
 
-'use strict';
+"use strict";
 
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const merge = require("webpack-merge");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const common = require('./webpack.common');
+const common = require("./webpack.common");
 
 const CURRENT_WORKING_DIR = process.cwd();
 
 module.exports = merge(common, {
-  mode: 'development',
+  mode: "development",
   output: {
-    path: path.join(CURRENT_WORKING_DIR, 'build'),
-    filename: '[name].js',
+    path: path.join(CURRENT_WORKING_DIR, "build"),
+    filename: "[name].js",
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: "cheap-module-eval-source-map",
   module: {
     rules: [
       {
         test: /\.(scss|sass|css)$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               sourceMap: true,
             },
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               sourceMap: true,
             },
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
               sourceMap: true,
             },
@@ -48,10 +48,10 @@ module.exports = merge(common, {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: 'images',
-              name: '[name].[ext]',
+              outputPath: "images",
+              name: "[name].[ext]",
             },
           },
         ],
@@ -60,10 +60,10 @@ module.exports = merge(common, {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: 'fonts',
-              name: '[name].[ext]',
+              outputPath: "fonts",
+              name: "[name].[ext]",
             },
           },
         ],
@@ -72,7 +72,7 @@ module.exports = merge(common, {
         test: /\.html$/,
         use: [
           {
-            loader: 'html-loader',
+            loader: "html-loader",
           },
         ],
       },
@@ -81,7 +81,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(CURRENT_WORKING_DIR, 'client/public/index.html'),
+      template: path.join(CURRENT_WORKING_DIR, "src/public/index.html"),
       inject: true,
     }),
   ],

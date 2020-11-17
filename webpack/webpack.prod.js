@@ -1,28 +1,28 @@
 /* eslint-disable */
 
-'use strict';
+"use strict";
 
-const path = require('path');
-const merge = require('webpack-merge');
-const { HashedModuleIdsPlugin } = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const path = require("path");
+const merge = require("webpack-merge");
+const { HashedModuleIdsPlugin } = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-const common = require('./webpack.common');
+const common = require("./webpack.common");
 
 const CURRENT_WORKING_DIR = process.cwd();
 
 module.exports = merge(common, {
-  mode: 'production',
+  mode: "production",
   output: {
-    path: path.join(CURRENT_WORKING_DIR, 'build'),
-    filename: 'js/[name].[chunkhash].js',
-    publicPath: '/',
+    path: path.join(CURRENT_WORKING_DIR, "build"),
+    filename: "js/[name].[chunkhash].js",
+    publicPath: "/",
   },
-  devtool: 'source-map',
+  devtool: "source-map",
   module: {
     rules: [
       {
@@ -30,13 +30,13 @@ module.exports = merge(common, {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader',
+            loader: "css-loader",
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
           },
         ],
       },
@@ -44,11 +44,11 @@ module.exports = merge(common, {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: 'images',
-              publicPath: 'images',
-              name: '[name].[hash].[ext]',
+              outputPath: "images",
+              publicPath: "images",
+              name: "[name].[hash].[ext]",
             },
           },
         ],
@@ -57,11 +57,11 @@ module.exports = merge(common, {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              outputPath: 'fonts',
-              publicPath: '../fonts',
-              name: '[name].[hash].[ext]',
+              outputPath: "fonts",
+              publicPath: "../fonts",
+              name: "[name].[hash].[ext]",
             },
           },
         ],
@@ -70,7 +70,7 @@ module.exports = merge(common, {
         test: /\.html$/,
         use: [
           {
-            loader: 'html-loader',
+            loader: "html-loader",
             options: { minimize: true },
           },
         ],
@@ -84,21 +84,21 @@ module.exports = merge(common, {
   },
   optimization: {
     minimize: true,
-    nodeEnv: 'production',
+    nodeEnv: "production",
     sideEffects: true,
     concatenateModules: true,
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     splitChunks: {
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
+          name: "vendors",
+          chunks: "all",
         },
         styles: {
           test: /\.css$/,
-          name: 'styles',
-          chunks: 'all',
+          name: "styles",
+          chunks: "all",
           enforce: true,
         },
       },
@@ -125,7 +125,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(CURRENT_WORKING_DIR, 'client/public/index.html'),
+      template: path.join(CURRENT_WORKING_DIR, "src/public/index.html"),
       inject: true,
       minify: {
         removeComments: true,
@@ -141,34 +141,34 @@ module.exports = merge(common, {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[hash].css',
+      filename: "css/[name].[hash].css",
     }),
     new WebpackPwaManifest({
-      name: 'React MobX Starter',
-      short_name: 'MobXStarter',
-      description: 'React MobX Starter!',
-      background_color: '#fff',
-      theme_color: '#4a68aa',
+      name: "React MobX Starter",
+      short_name: "MobXStarter",
+      description: "React MobX Starter!",
+      background_color: "#fff",
+      theme_color: "#4a68aa",
       inject: true,
       ios: true,
       icons: [
         {
-          src: path.resolve('client/public/images/pwa.png'),
-          destination: 'images',
+          src: path.resolve("src/public/images/pwa.png"),
+          destination: "images",
           sizes: [72, 96, 128, 144, 192, 384, 512],
         },
         {
-          src: path.resolve('client/public/images/pwa.png'),
+          src: path.resolve("src/public/images/pwa.png"),
+          destination: "images",
           sizes: [120, 152, 167, 180],
-          destination: 'images',
           ios: true,
         },
       ],
     }),
     new OptimizeCssAssetsPlugin({}),
     new HashedModuleIdsPlugin({
-      hashFunction: 'sha256',
-      hashDigest: 'hex',
+      hashFunction: "sha256",
+      hashDigest: "hex",
       hashDigestLength: 20,
     }),
   ],
