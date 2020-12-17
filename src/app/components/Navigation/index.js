@@ -1,53 +1,165 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { useHistory } from "react-router-dom";
-import { AppNavBar, setItemActive } from "baseui/app-nav-bar";
-import { ChevronDown, Delete } from "baseui/icon";
+import { useHistory, useLocation } from "react-router-dom";
+import { useStyletron } from "baseui";
+import { Menu } from "baseui/icon";
+import { Block } from "baseui/block";
+import { Drawer } from "baseui/drawer";
+import { FlexGrid, FlexGridItem } from "baseui/flex-grid";
+import { Navigation as BaseNavigation } from "baseui/side-navigation";
+import {
+  HeaderNavigation,
+  ALIGN,
+  StyledNavigationList,
+  StyledNavigationItem,
+} from "baseui/header-navigation";
 
+import Button from "../Button";
+import Link from "../Link";
+import Logo from "../Logo";
 import ThemeToggler from "../ThemeToggler";
 
+const navItems = [
+  {
+    title: "Home",
+    itemId: "/",
+  },
+  {
+    title: "About",
+    itemId: "/about",
+  },
+  {
+    title: "Shop",
+    itemId: "/shop",
+  },
+  {
+    title: "Cart",
+    itemId: "/cart",
+  },
+];
+
 const Navigation = (props) => {
-  const [mainItems, setMainItems] = useState([]);
   const history = useHistory();
+  const loc = useLocation();
+  const [css, theme] = useStyletron();
+  const [isOpen, setIsOpen] = useState(false);
+  const [location, setLocation] = useState(loc.pathname);
 
-  useEffect(() => {
-    setMainItems([
-      {
-        active: true,
-        label: "Home",
-        link: "/",
+  const itemProps = {
+    display: "flex",
+    alignItems: "center",
+  };
+
+  const narrowItemProps = {
+    ...itemProps,
+    overrides: {
+      Block: {
+        style: ({ $theme }) => ({
+          width: $theme.sizing.scale1600,
+          flexGrow: 0,
+          justifyContent: "center",
+        }),
       },
-      {
-        icon: ChevronDown,
-        label: "Shop",
-        navExitIcon: Delete,
-        children: [
-          { label: "Products", link: "/products" },
-          { label: "Cart", link: "/cart" },
-        ],
-      },
-      {
-        label: <ThemeToggler theme={props.theme} setTheme={props.setTheme} />,
-      },
-    ]);
-  }, [props.theme]);
-
-  const handleMenuItems = (item) => {
-    const { link } = item;
-
-    if (link) {
-      history.push(link);
-    }
-
-    setMainItems((prev) => setItemActive(prev, item));
+    },
   };
 
   return (
-    <AppNavBar
-      title="React MobX"
-      mainItems={mainItems}
-      onMainItemSelect={handleMenuItems}
-    />
+    <>
+      <Drawer renderAll onClose={() => setIsOpen(false)} isOpen={isOpen}>
+        <BaseNavigation
+          items={navItems}
+          activeItemId={location}
+          onChange={({ event, item }) => {
+            event.preventDefault();
+            history.push(item.itemId);
+            setLocation(item.itemId);
+          }}
+          overrides={{
+            NavItem: {
+              style: ({ $active, $theme }) => {
+                if (!$active)
+                  return {
+                    ":hover": {
+                      color: $theme.colors.primaryA,
+                      backgroundColor: $theme.colors.backgroundSecondary,
+                    },
+                    ":active": {
+                      color: $theme.colors.primaryA,
+                      backgroundColor: $theme.colors.backgroundSecondary,
+                    },
+                  };
+                return {
+                  backgroundColor: $theme.colors.primaryA,
+                  //   color: $theme.colors.primary300,
+                  ":hover": {
+                    color: $theme.colors.accent400,
+                  },
+                };
+              },
+            },
+          }}
+        />
+      </Drawer>
+
+      <Block display={["block", "block", "none"]}>
+        <FlexGrid
+          flexGridColumnCount={[2]}
+          flexGridColumnGap="scale400"
+          flexGridRowGap="scale0"
+          className={css({
+            backgroundColor: theme.colors.primaryB,
+          })}
+        >
+          <FlexGridItem {...narrowItemProps}>
+            <Button onClick={() => setIsOpen(true)} kind="minimal">
+              <Menu size={30} />
+            </Button>
+          </FlexGridItem>
+
+          <FlexGridItem>
+            <Logo />
+          </FlexGridItem>
+        </FlexGrid>
+      </Block>
+
+      <Block display={["none", "none", "block"]}>
+        <HeaderNavigation>
+          <StyledNavigationList $align={ALIGN.left}>
+            <StyledNavigationItem>
+              <Logo />
+            </StyledNavigationItem>
+          </StyledNavigationList>
+          <StyledNavigationList $align={ALIGN.center} />
+          <StyledNavigationList $align={ALIGN.right}>
+            <StyledNavigationItem>
+              <Link to="/">Home</Link>
+            </StyledNavigationItem>
+            <StyledNavigationItem>
+              <Link to="/about">About</Link>
+            </StyledNavigationItem>
+            <StyledNavigationItem>
+              <Link to="/shop">Shop</Link>
+            </StyledNavigationItem>
+            <StyledNavigationItem>
+              <Link to="/cart">Cart</Link>
+            </StyledNavigationItem>
+          </StyledNavigationList>
+          <StyledNavigationList $align={ALIGN.right}>
+            <StyledNavigationItem
+              className={css({
+                marginRight: theme.sizing.scale400,
+              })}
+            >
+              <ThemeToggler
+                theme={props.theme}
+                setTheme={props.setTheme}
+                kind="primary"
+              />
+            </StyledNavigationItem>
+          </StyledNavigationList>
+        </HeaderNavigation>
+      </Block>
+    </>
   );
 };
 

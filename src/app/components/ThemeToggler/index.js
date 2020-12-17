@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Button } from "baseui/button";
-import { useStyletron } from "baseui";
+import Button from "../Button";
 
 const THEME = {
   light: "light",
@@ -9,13 +8,9 @@ const THEME = {
 };
 
 const ThemeToggler = (props) => {
-  const [css, theme] = useStyletron();
-
   return (
     <Button
-      className={css({
-        ...props.style,
-      })}
+      {...props}
       onClick={() =>
         props.setTheme(props.theme === THEME.light ? THEME.dark : THEME.light)
       }

@@ -5,7 +5,6 @@ import { useStyletron } from "baseui";
 
 const Link = ({ children, style, to, isExternal, ...props }) => {
   const [css, theme] = useStyletron();
-  console.log({ props });
 
   if (isExternal) {
     return (
@@ -15,7 +14,7 @@ const Link = ({ children, style, to, isExternal, ...props }) => {
         className={css({
           cursor: "pointer",
           textDecoration: "none",
-          color: theme.colors.accent,
+          color: theme.colors.primary,
           ":after": {
             content: "🔗",
           },
@@ -33,7 +32,7 @@ const Link = ({ children, style, to, isExternal, ...props }) => {
       className={css({
         cursor: "pointer",
         textDecoration: "none",
-        color: theme.colors.accent,
+        color: theme.colors.primary,
         ...style,
       })}
     >

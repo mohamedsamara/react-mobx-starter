@@ -1,13 +1,9 @@
 import React from "react";
 
-import FancyLink from "../../components/Link";
+import { H4 } from "baseui/typography";
 
 const Homepage = () => {
-  return (
-    <div>
-      <FancyLink to="/test">test</FancyLink>
-    </div>
-  );
+  return <H4>Home Page</H4>;
 };
 
 export default Homepage;
