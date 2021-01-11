@@ -90,7 +90,6 @@ const Navigation = (props) => {
                   };
                 return {
                   backgroundColor: $theme.colors.primaryA,
-                  //   color: $theme.colors.primary300,
                   ":hover": {
                     color: $theme.colors.accent400,
                   },

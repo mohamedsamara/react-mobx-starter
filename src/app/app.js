@@ -34,9 +34,11 @@ const App = () => {
         <StyletronProvider value={engine}>
           <BaseProvider theme={theme === THEME.light ? LightTheme : DarkTheme}>
             <Navigation theme={theme} setTheme={setTheme} />
-            <Grid>
-              <Switch>{routeComponents}</Switch>
-            </Grid>
+            <div className="wrapper">
+              <Grid>
+                <Switch>{routeComponents}</Switch>
+              </Grid>
+            </div>
           </BaseProvider>
         </StyletronProvider>
       </Router>
