@@ -15,7 +15,8 @@ module.exports = merge(common, {
   mode: "development",
   output: {
     path: path.join(CURRENT_WORKING_DIR, "build"),
-    filename: "[name].js",
+    filename: "bundle.js",
+    chunkFilename: "[name].chunk.js",
   },
   devtool: "cheap-module-eval-source-map",
   module: {
@@ -102,5 +103,6 @@ module.exports = merge(common, {
       chunkModules: false,
       modules: false,
     },
+    writeToDisk: true,
   },
 });

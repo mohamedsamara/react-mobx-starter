@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 
-import { Router, Switch, Route } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, DarkTheme, BaseProvider } from "baseui";
 import { Grid } from "baseui/layout-grid";
 
-import history from "./history";
-import routes from "./routes";
-
-import Navigation from "./components/Navigation";
 import "./styles";
-import Homepage from "./pages/Homepage";
-import About from "./pages/About";
+import history from "./history";
+import Routes from "./routes";
+import Navigation from "./components/Navigation";
 
 const engine = new Styletron();
 
@@ -24,10 +21,6 @@ const THEME = {
 const App = () => {
   const [theme, setTheme] = useState(THEME.light);
 
-  const routeComponents = routes.map(({ path, component }, key) => (
-    <Route key={key} path={path} component={component} exact />
-  ));
-
   return (
     <div className="application">
       <Router history={history}>
@@ -36,7 +29,7 @@ const App = () => {
             <Navigation theme={theme} setTheme={setTheme} />
             <div className="wrapper">
               <Grid>
-                <Switch>{routeComponents}</Switch>
+                <Routes />
               </Grid>
             </div>
           </BaseProvider>

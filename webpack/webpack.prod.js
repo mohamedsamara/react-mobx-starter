@@ -19,7 +19,8 @@ module.exports = merge(common, {
   mode: "production",
   output: {
     path: path.join(CURRENT_WORKING_DIR, "build"),
-    filename: "js/[name].[chunkhash].js",
+    filename: "js/[name].[contenthash:8].js",
+    chunkFilename: "js/[name].[contenthash:8].chunk.js",
     publicPath: "/",
   },
   devtool: "source-map",
@@ -87,21 +88,29 @@ module.exports = merge(common, {
     nodeEnv: "production",
     sideEffects: true,
     concatenateModules: true,
-    runtimeChunk: "single",
+    // runtimeChunk: "single",
+    // splitChunks: {
+    //   cacheGroups: {
+    //     vendors: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: "vendors",
+    //       chunks: "all",
+    //     },
+    //     styles: {
+    //       test: /\.css$/,
+    //       name: "styles",
+    //       chunks: "all",
+    //       enforce: true,
+    //     },
+    //   },
+    // },
+
     splitChunks: {
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
-        },
-        styles: {
-          test: /\.css$/,
-          name: "styles",
-          chunks: "all",
-          enforce: true,
-        },
-      },
+      chunks: "all",
+      name: false,
+    },
+    runtimeChunk: {
+      name: (entrypoint) => `runtime-${entrypoint.name}`,
     },
     minimizer: [
       new TerserPlugin({
