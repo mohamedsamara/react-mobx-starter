@@ -11,12 +11,10 @@ const Shop = observer(() => {
     productsStore.fetchProducts();
   }, []);
 
-  console.log(productsStore.products, "products");
-
   return (
     <div>
-      <H4>Shop Page</H4>
-      <ProductList />
+      <H4>Shop</H4>
+      <ProductList products={productsStore.products.data} />
     </div>
   );
 });

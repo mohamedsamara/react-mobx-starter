@@ -3,7 +3,15 @@ import React from "react";
 import { useStyletron } from "baseui";
 import { Button as BaseButton, KIND, SHAPE } from "baseui/button";
 
-const Button = ({ children, onClick, style, kind, shape }) => {
+const Button = ({
+  children,
+  onClick,
+  style,
+  kind,
+  shape,
+  overrides,
+  props,
+}) => {
   const [css] = useStyletron();
 
   return (
@@ -14,6 +22,8 @@ const Button = ({ children, onClick, style, kind, shape }) => {
         ...style,
       })}
       onClick={onClick}
+      overrides={overrides}
+      {...props}
     >
       {children}
     </BaseButton>
