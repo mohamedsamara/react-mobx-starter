@@ -2,7 +2,12 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 
-import { LoadableHome, LoadableAbout, LoadableNotFoundPage } from "./routes";
+import {
+  LoadableHome,
+  LoadableAbout,
+  LoadableShop,
+  LoadableNotFoundPage,
+} from "./routes";
 
 const Routes = () => (
   <Switch>
@@ -11,6 +16,9 @@ const Routes = () => (
     </Route>
     <Route path="/about">
       <LoadableAbout />
+    </Route>
+    <Route path="/shop">
+      <LoadableShop />
     </Route>
     <Route>
       <LoadableNotFoundPage />
