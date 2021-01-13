@@ -10,7 +10,7 @@ import {
 
 import Button from "../../components/Button";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, addToCart, removeFromCart }) => {
   return (
     <>
       <Card
@@ -43,6 +43,9 @@ const ProductItem = ({ product }) => {
           <Button
             overrides={{ BaseButton: { style: { width: "100%" } } }}
             kind="secondary"
+            onClick={() => {
+              addToCart(product);
+            }}
           >
             Add To Cart
           </Button>

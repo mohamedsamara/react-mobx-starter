@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { useHistory, useLocation } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 import { useStyletron } from "baseui";
 import { Menu } from "baseui/icon";
 import { Block } from "baseui/block";
@@ -14,6 +15,7 @@ import {
   StyledNavigationItem,
 } from "baseui/header-navigation";
 
+import cartStore from "../../stores/Cart";
 import Button from "../Button";
 import Link from "../Link";
 import Logo from "../Logo";
@@ -38,7 +40,7 @@ const navItems = [
   },
 ];
 
-const Navigation = (props) => {
+const Navigation = observer((props) => {
   const history = useHistory();
   const loc = useLocation();
   const [css, theme] = useStyletron();
@@ -140,7 +142,17 @@ const Navigation = (props) => {
               <Link to="/shop">Shop</Link>
             </StyledNavigationItem>
             <StyledNavigationItem>
-              <Link to="/cart">Cart</Link>
+              <Link to="/cart" style={{ position: "relative" }}>
+                <span
+                  className={`cart-badge ${css({
+                    backgroundColor: theme.colors.primaryA,
+                    color: theme.colors.primaryB,
+                  })}`}
+                >
+                  {cartStore.cartItems}
+                </span>
+                Cart
+              </Link>
             </StyledNavigationItem>
           </StyledNavigationList>
           <StyledNavigationList $align={ALIGN.right}>
@@ -160,6 +172,6 @@ const Navigation = (props) => {
       </Block>
     </>
   );
-};
+});
 
 export default Navigation;

@@ -6,13 +6,12 @@ class Products {
     data: [],
     error: "",
   };
-  comments = ["hello", "hi"];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  async fetchProducts() {
+  fetchProducts = async () => {
     try {
       const response = await axios.get("https://fakestoreapi.com/products");
 
@@ -20,27 +19,7 @@ class Products {
     } catch (error) {
       this.products.error = error;
     }
-  }
-
-  pushProduct(newProduct) {
-    this.products.data.push(newProduct);
-  }
-
-  //   increaseTimer() {
-  //     this.secondsPassed += 1;
-  //   }
-
-  //   updateCount() {
-  //     this.likesCount++;
-  //   }
-
-  postComment(comment) {
-    this.comments.push(comment);
-  }
-
-  //   get commentsCount() {
-  //     return this.comments.length;
-  //   }
+  };
 }
 
 const productsStore = new Products();

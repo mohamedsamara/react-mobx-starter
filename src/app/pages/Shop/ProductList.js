@@ -10,7 +10,7 @@ const itemProps = {
   justifyContent: "center",
 };
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, addToCart, removeFromCart }) => {
   return (
     <>
       <FlexGrid
@@ -20,7 +20,11 @@ const ProductList = ({ products }) => {
       >
         {products.map((product, index) => (
           <FlexGridItem {...itemProps} key={index}>
-            <ProductItem product={product} />
+            <ProductItem
+              product={product}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+            />
           </FlexGridItem>
         ))}
       </FlexGrid>

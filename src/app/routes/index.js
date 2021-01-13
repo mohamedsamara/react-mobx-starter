@@ -6,6 +6,7 @@ import {
   LoadableHome,
   LoadableAbout,
   LoadableShop,
+  LoadableCart,
   LoadableNotFoundPage,
 } from "./routes";
 
@@ -19,6 +20,9 @@ const Routes = () => (
     </Route>
     <Route path="/shop">
       <LoadableShop />
+    </Route>
+    <Route path="/cart">
+      <LoadableCart />
     </Route>
     <Route>
       <LoadableNotFoundPage />

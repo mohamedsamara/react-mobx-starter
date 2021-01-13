@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { H4 } from "baseui/typography";
 
 import productsStore from "../../stores/Products";
+import cartStore from "../../stores/Cart";
 import ProductList from "./ProductList";
 
 const Shop = observer(() => {
@@ -14,7 +15,11 @@ const Shop = observer(() => {
   return (
     <div>
       <H4>Shop</H4>
-      <ProductList products={productsStore.products.data} />
+      <ProductList
+        products={productsStore.products.data}
+        addToCart={cartStore.addToCart}
+        removeFromCart={cartStore.removeFromCart}
+      />
     </div>
   );
 });
