@@ -9,7 +9,7 @@ const Logo = () => {
   return (
     <HeadingLevel>
       <Heading styleLevel={6} color={theme.colors.primaryA}>
-        React Mobx
+        React MobX
       </Heading>
     </HeadingLevel>
   );

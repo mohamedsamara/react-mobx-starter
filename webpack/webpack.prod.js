@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const WorkerPlugin = require("worker-plugin");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const common = require("./webpack.common");
 
@@ -153,12 +154,29 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: "css/[name].[hash].css",
     }),
+    new GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+      include: [/\.js$/],
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp("."),
+          handler: "StaleWhileRevalidate",
+        },
+        {
+          urlPattern: new RegExp(
+            "https://fonts.googleapis.com|https://fonts.gstatic.com"
+          ),
+          handler: "CacheFirst",
+        },
+      ],
+    }),
     new WebpackPwaManifest({
       name: "React MobX Starter",
       short_name: "MobXStarter",
       description: "React MobX Starter!",
       background_color: "#fff",
-      theme_color: "#4a68aa",
+      theme_color: "#1f1f1f",
       inject: true,
       ios: true,
       icons: [
@@ -172,6 +190,12 @@ module.exports = merge(common, {
           destination: "images",
           sizes: [120, 152, 167, 180],
           ios: true,
+        },
+        {
+          src: path.resolve("src/public/images/pwa.png"),
+          destination: "images",
+          sizes: "196x196",
+          purpose: "maskable",
         },
       ],
     }),
