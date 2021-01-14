@@ -16,14 +16,24 @@ class Products {
 
   fetchProducts = async () => {
     try {
-      const test2 = await workerApi.fetchCategories();
-
       const response = await axios.get("https://fakestoreapi.com/products");
 
       this.products.data = response.data;
     } catch (error) {
-      console.log({ error });
+      this.products.error = error;
+    } finally {
+      this.products.loading = false;
+    }
+  };
 
+  fetchCategoryProducts = async (category) => {
+    try {
+      this.products.loading = true;
+
+      const response = await workerApi.fetchCategoryProducts(category);
+
+      this.products.data = response;
+    } catch (error) {
       this.products.error = error;
     } finally {
       this.products.loading = false;
