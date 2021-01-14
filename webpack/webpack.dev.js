@@ -6,6 +6,7 @@ const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WorkerPlugin = require("worker-plugin");
 
 const common = require("./webpack.common");
 
@@ -80,6 +81,7 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new WorkerPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(CURRENT_WORKING_DIR, "src/public/index.html"),

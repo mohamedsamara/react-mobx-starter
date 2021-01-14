@@ -10,6 +10,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const WorkerPlugin = require("worker-plugin");
 
 const common = require("./webpack.common");
 
@@ -104,7 +105,6 @@ module.exports = merge(common, {
     //     },
     //   },
     // },
-
     splitChunks: {
       chunks: "all",
       name: false,
@@ -133,6 +133,7 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
+    new WorkerPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(CURRENT_WORKING_DIR, "src/public/index.html"),
       inject: true,

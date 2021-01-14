@@ -6,6 +6,7 @@ import { H4 } from "baseui/typography";
 import productsStore from "../../stores/Products";
 import cartStore from "../../stores/Cart";
 import ProductList from "./ProductList";
+import Loader from "../../components/Loader";
 
 const Shop = observer(() => {
   useEffect(() => {
@@ -15,11 +16,16 @@ const Shop = observer(() => {
   return (
     <div>
       <H4>Shop</H4>
-      <ProductList
-        products={productsStore.products.data}
-        addToCart={cartStore.addToCart}
-        removeFromCart={cartStore.removeFromCart}
-      />
+
+      {productsStore.products.loading ? (
+        <Loader />
+      ) : (
+        <ProductList
+          products={productsStore.products.data}
+          addToCart={cartStore.addToCart}
+          removeFromCart={cartStore.removeFromCart}
+        />
+      )}
     </div>
   );
 });
