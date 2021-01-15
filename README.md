@@ -44,6 +44,8 @@ $ npm run serve
 
 - [Base Web](https://baseweb.design/)
 
+- [Loadable Components](https://loadable-components.com/)
+
 - [Comlink](https://github.com/GoogleChromeLabs/comlink)
 
 - [Workbox](https://developers.google.com/web/tools/workbox)
