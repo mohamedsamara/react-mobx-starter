@@ -105,6 +105,5 @@ module.exports = merge(common, {
       chunkModules: false,
       modules: false,
     },
-    writeToDisk: true,
   },
 });
