@@ -14,9 +14,16 @@
     "type": "git",
     "url": "git+https://github.com/mohamedsamara/react-mobx-starter.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "mobx",
+    "baseui",
+    "comlink",
+    "workbox",
+    "netlify"
+  ],
   "author": "Mohamed Samara (https://github.com/mohamedsamara)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mohamedsamara/react-mobx-starter/issues"
   },
